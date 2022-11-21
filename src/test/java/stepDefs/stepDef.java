@@ -6,6 +6,7 @@ import io.cucumber.java.ParameterType;
 import io.cucumber.java.ru.И;
 import io.cucumber.java.ru.Пусть;
 import io.cucumber.java.ru.Тогда;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -31,12 +32,14 @@ public class stepDef {
 
     WebDriver driver = new ChromeDriver();
 
+    @Step("Открыт ресурс Авито")
     @Пусть("открыт ресурс авито")
     public void открытРесурсАвито() {
         System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
         driver.get("https://www.avito.ru/");
     }
 
+    @Step("В выпажающем списке категорий выбрана {category}")
     @И("в выпадающем списке категорий выбрана {categories}")
     public void вВыпадающемСпискеКатегорийВыбранаКатегория(Categories category) throws InterruptedException {
         if (driver.findElement(By.xpath("//button")).getAttribute("class").contains("form-part-buttonElement")) {
@@ -91,7 +94,7 @@ public class stepDef {
             }
         }
     }
-
+    @Step("В поле поиска введено значение {string}")
     @И("в поле поиска введено значение {word}")
     public void вПолеПоискаВведеноЗначение(String string) {
         WebElement input = driver.findElement(By.xpath("//input[@data-marker=\"search-form/suggest\"]"));
@@ -99,6 +102,7 @@ public class stepDef {
         input.sendKeys(Keys.RETURN);
     }
 
+    @Step("активирован чекбокс только Новые")
     @И("активирован чекбокс только Новые")
     public void активированЧекбоксТолькоНовые() throws InterruptedException {
         //чекбокс с фотографией отсутствует
@@ -109,12 +113,14 @@ public class stepDef {
         checkBox.click();
     }
 
+    @Step("кликнуть по выпадающему списку региона")
     @Тогда("кликнуть по выпадающему списку региона")
     public void кликнутьПоВыпадающемуСпискуРегиона() {
         WebElement region = driver.findElement(By.xpath("//div[@data-marker='search-form/region']"));
         region.click();
     }
 
+    @Step("в поле регион введено значение {arg0}")
     @Тогда("в поле регион введено значение {word}")
     public void вПолеРегионВведеноЗначение(String arg0) throws InterruptedException {
         WebElement input = driver.findElement(By.xpath("//input[@data-marker='popup-location/region/input']"));
@@ -125,12 +131,14 @@ public class stepDef {
         Thread.sleep(1_000);
     }
 
+    @Step("нажата кнопка поиска объявления")
     @И("нажата кнопка поиска объявления")
     public void нажатаКнопкаПоискаОбъявления() {
         WebElement saveButton = driver.findElement(By.xpath("//button[@data-marker='popup-location/save-button']"));
         saveButton.click();
     }
 
+    @Step("открылась страница: Результаты по запросу {arg0}")
     @Тогда("открылась страница результаты по запросу {word}")
     public void открыласьСтраницаРезультатыПоЗапросу(String arg0) {
         WebElement header = driver.findElement(By.xpath("//h1"));
@@ -139,6 +147,7 @@ public class stepDef {
         assertTrue(actual.contains("Объявления по запросу «" + arg0 + "»"));
     }
 
+    @Step("В выпадающем списке сортировка выбрано значние {arg0}")
     @И("в выпадающем списке сортировка выбрано значение {filters}")
     public void вВыпадающемСпискеСортировкаВыбраноЗначение(Filters arg0) throws InterruptedException {
         WebElement filter = driver.findElement(By.xpath("//option[text()='" + arg0.getName() + "']"));
@@ -146,6 +155,7 @@ public class stepDef {
         filter.click();
     }
 
+    @Step("В консоль выведено значние названия и цены {arg0} первых товаров")
     @И("в консоль выведено значение названия и цены {int} первых товаров")
     public void вКонсольВыведеноЗначениеНазванияИЦеныПервыхТоваров(int arg0) {
         List<WebElement> names = driver.findElements(By.xpath("//h3"));

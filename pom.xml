@@ -13,7 +13,7 @@
         <maven.compiler.target>18</maven.compiler.target>
         <maven-surefire-plugin.version>2.20.1</maven-surefire-plugin.version>
         <aspectj.version>1.8.10</aspectj.version>
-        <allure-junit4.version>LATEST</allure-junit4.version>
+        <allure-junit4.version>2.20.1</allure-junit4.version>
     </properties>
 
     <dependencies>
