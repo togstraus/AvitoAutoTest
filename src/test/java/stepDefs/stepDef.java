@@ -108,8 +108,6 @@ public class stepDef {
         //чекбокс с фотографией отсутствует
         Thread.sleep(1_000);
         WebElement checkBox = driver.findElement(By.xpath("//span[contains(@class, 'checkbox')][contains(text(), 'Новые')]"));
-        ///ancestor::label"
-//        WebElement checkBox = new WebDriverWait(driver, Duration.ofMillis(2_000)).until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(@class, 'checkbox')][contains(text(), 'Новые')]/ancestor::label")));
         checkBox.click();
     }
 

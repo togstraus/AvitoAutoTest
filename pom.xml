@@ -12,7 +12,7 @@
         <maven.compiler.source>18</maven.compiler.source>
         <maven.compiler.target>18</maven.compiler.target>
         <maven-surefire-plugin.version>2.20.1</maven-surefire-plugin.version>
-        <aspectj.version>1.8.10</aspectj.version>
+        <aspectj.version>1.9.9.1</aspectj.version>
         <allure-junit4.version>2.20.1</allure-junit4.version>
     </properties>
 
@@ -80,6 +80,7 @@
                         <groupId>org.aspectj</groupId>
                         <artifactId>aspectjweaver</artifactId>
                         <version>${aspectj.version}</version>
+                        <scope>runtime</scope>
                     </dependency>
                 </dependencies>
             </plugin>
