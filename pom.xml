@@ -8,33 +8,89 @@
     <artifactId>Avito</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <!--    <properties>-->
+    <!--        <maven.compiler.source>8</maven.compiler.source>-->
+    <!--        <maven.compiler.target>8</maven.compiler.target>-->
+    <!--        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>-->
+    <!--        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>-->
+
+    <!--        <project.build.directory>target</project.build.directory>-->
+    <!--        <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>-->
+    <!--        <aspectj.version>1.8.10</aspectj.version>-->
+    <!--        <allure-maven.version>2.12.0</allure-maven.version>-->
+    <!--        <selenium-java.version>4.6.0</selenium-java.version>-->
+    <!--&lt;!&ndash;        <allure-testng.version>2.20.0</allure-testng.version>&ndash;&gt;-->
+    <!--&lt;!&ndash;        <testng.version>6.14.3</testng.version>&ndash;&gt;-->
+    <!--        <cucumber.version>7.8.1</cucumber.version>-->
+    <!--        <allure-commandline.version>2.20.0</allure-commandline.version>-->
+    <!--    </properties>-->
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
         <project.build.directory>target</project.build.directory>
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
         <aspectj.version>1.8.10</aspectj.version>
         <allure-maven.version>2.12.0</allure-maven.version>
         <selenium-java.version>4.6.0</selenium-java.version>
-<!--        <allure-testng.version>2.20.0</allure-testng.version>-->
-<!--        <testng.version>6.14.3</testng.version>-->
+        <allure-testng.version>2.20.0</allure-testng.version>
+        <testng.version>6.14.3</testng.version>
         <cucumber.version>7.8.1</cucumber.version>
         <allure-commandline.version>2.20.0</allure-commandline.version>
+        <ashot>1.5.4</ashot>
+        <selenide>6.10</selenide>
     </properties>
+
 
     <dependencies>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>4.6.0</version>
+            <version>${selenium-java.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.selenide</groupId>
-            <artifactId>selenide-selenoid</artifactId>
-            <version>2.2.4</version>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-maven</artifactId>
+            <version>${allure-maven.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-testng</artifactId>
+            <version>${allure-testng.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${testng.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-testng</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ru.yandex.qatools.ashot</groupId>
+            <artifactId>ashot</artifactId>
+            <version>${ashot}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-commandline</artifactId>
+            <version>${allure-commandline.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.22</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -44,8 +100,9 @@
         </dependency>
         <dependency>
             <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-java</artifactId>
-            <version>7.6.0</version>
+            <artifactId>cucumber-testng</artifactId>
+            <version>7.9.0</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.cucumber</groupId>
@@ -54,23 +111,58 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.22</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.qameta.allure</groupId>
-            <artifactId>allure-junit4</artifactId>
-            <version>2.20.0</version>
-        </dependency>
-        <dependency>
-            <groupId>ru.yandex.qatools.ashot</groupId>
-            <artifactId>ashot</artifactId>
-            <version>1.5.4</version>
-            <scope>test</scope>
+            <groupId>com.codeborne</groupId>
+            <artifactId>selenide</artifactId>
+            <version>6.7.4</version>
         </dependency>
     </dependencies>
+
+    <!--    <dependencies>-->
+    <!--        <dependency>-->
+    <!--            <groupId>org.seleniumhq.selenium</groupId>-->
+    <!--            <artifactId>selenium-java</artifactId>-->
+    <!--            <version>4.6.0</version>-->
+    <!--        </dependency>-->
+    <!--        <dependency>-->
+    <!--            <groupId>org.selenide</groupId>-->
+    <!--            <artifactId>selenide-selenoid</artifactId>-->
+    <!--            <version>2.2.4</version>-->
+    <!--        </dependency>-->
+    <!--        <dependency>-->
+    <!--            <groupId>junit</groupId>-->
+    <!--            <artifactId>junit</artifactId>-->
+    <!--            <version>4.13.2</version>-->
+    <!--            <scope>test</scope>-->
+    <!--        </dependency>-->
+    <!--        <dependency>-->
+    <!--            <groupId>io.cucumber</groupId>-->
+    <!--            <artifactId>cucumber-java</artifactId>-->
+    <!--            <version>7.6.0</version>-->
+    <!--        </dependency>-->
+    <!--        <dependency>-->
+    <!--            <groupId>io.cucumber</groupId>-->
+    <!--            <artifactId>cucumber-junit</artifactId>-->
+    <!--            <version>7.9.0</version>-->
+    <!--            <scope>test</scope>-->
+    <!--        </dependency>-->
+    <!--        <dependency>-->
+    <!--            <groupId>org.projectlombok</groupId>-->
+    <!--            <artifactId>lombok</artifactId>-->
+    <!--            <version>1.18.22</version>-->
+    <!--            <scope>test</scope>-->
+    <!--        </dependency>-->
+    <!--        <dependency>-->
+    <!--            <groupId>io.qameta.allure</groupId>-->
+    <!--            <artifactId>allure-junit4</artifactId>-->
+    <!--            <version>2.20.0</version>-->
+    <!--        </dependency>-->
+    <!--        <dependency>-->
+    <!--            <groupId>ru.yandex.qatools.ashot</groupId>-->
+    <!--            <artifactId>ashot</artifactId>-->
+    <!--            <version>1.5.4</version>-->
+    <!--            <scope>test</scope>-->
+    <!--        </dependency>-->
+    <!--    </dependencies>-->
 
     <build>
         <plugins>
@@ -108,4 +200,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>

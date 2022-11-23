@@ -1,7 +1,14 @@
 package stepDefs;
 
-import enumiration.Categories;
-import enumiration.Filters;
+import io.cucumber.java.AfterStep;
+import io.qameta.allure.Attachment;
+import lombok.Getter;
+import ru.yandex.qatools.ashot.AShot;
+import ru.yandex.qatools.ashot.Screenshot;
+import stepDefs.enumiration.Categories;
+import stepDefs.enumiration.Filters;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import io.cucumber.java.ParameterType;
 import io.cucumber.java.ru.И;
 import io.cucumber.java.ru.Пусть;
@@ -12,11 +19,16 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+
+import javax.imageio.ImageIO;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
-public class stepDef {
+@Getter
+public class StepDef {
 
     @ParameterType(".*")
     public Categories categories(String category) {
@@ -28,13 +40,20 @@ public class stepDef {
         return Filters.valueOf(filter);
     }
 
-    WebDriver driver = new ChromeDriver();
+    private WebDriver driver;
+
+    @Before
+    public void driverOpen() {
+        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+    }
 
     @Step("Открыт ресурс Авито")
     @Пусть("открыт ресурс авито")
-    public void открытРесурсАвито() {
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
+    public void открытРесурсАвито() throws InterruptedException {
         driver.get("https://www.avito.ru/");
+        Thread.sleep(2_000);
     }
 
     @Step("В выпажающем списке категорий выбрана {category}")
@@ -146,8 +165,28 @@ public class stepDef {
             content = prices.get(i).getAttribute("content");
             System.out.println(names.get(i).getText() + ": " + content + " рублей.");
         }
-        driver.close();
     }
 
+    @SuppressWarnings("all")
+    @Attachment(value = "Screenshot", type = "image/png")
+    public byte[] takeScreenshot(WebDriver driver) {
+        Screenshot screenshot = new AShot().takeScreenshot(driver);
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        try {
+            ImageIO.write(screenshot.getImage(), "PNG", buffer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return buffer.toByteArray();
+    }
 
+    @AfterStep
+    public void after() {
+        takeScreenshot(driver);
+    }
+
+    @After
+    public void driverQuit() {
+        driver.quit();
+    }
 }
