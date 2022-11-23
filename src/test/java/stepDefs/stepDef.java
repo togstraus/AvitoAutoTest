@@ -12,9 +12,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import static org.junit.Assert.assertTrue;
 
@@ -44,54 +42,38 @@ public class stepDef {
     public void вВыпадающемСпискеКатегорийВыбранаКатегория(Categories category) throws InterruptedException {
         if (driver.findElement(By.xpath("//button")).getAttribute("class").contains("form-part-buttonElement")) {
             //version 1
-            try {
-                System.out.println("Avito version 1");
-                WebElement rubricator = driver.findElement(By.xpath("//select[@name='category_id']"));
-                rubricator.click();
-                WebElement selector = driver.findElement(By.xpath("//option[text()='" + category.getName() + "']"));
-                selector.click();
-            } catch (Exception e) {
-                throw new NoSuchElementException(e);
-            }
+            System.out.println("Avito version 1");
+            WebElement rubricator = driver.findElement(By.xpath("//select[@name='category_id']"));
+            rubricator.click();
+            WebElement selector = driver.findElement(By.xpath("//option[text()='" + category.getName() + "']"));
+            selector.click();
         } else if (driver.findElement(By.xpath("//a[@href='/tolyatti/transport']")).getAttribute("class").contains("xshq8")) {
             WebElement rubricator = driver.findElement(By.xpath("//button[contains(@class, 'rubricatorButton')]"));
             rubricator.click();
             Thread.sleep(1_000);
             if (driver.findElement(By.xpath("//div[@data-marker='more-popup']")).getAttribute("class").contains("top-rubricator-tooltip")) {
                 //version 2.1
-                try {
-                    System.out.println("Avito version 2.1");
-                    WebElement selector = driver.findElement(By.xpath("//p[contains(text(), 'Электроника')]"));
-                    selector.click();
-                    WebElement categoryButton = driver.findElement(By.xpath("//strong[contains(@data-name, '" + category.getName() + "')]"));
-                    categoryButton.click();
-                } catch (Exception e) {
-                    throw new NoSuchElementException(e);
-                }
-            } else {
-                //version 2.2
-                try {
-                    System.out.println("Avito version 2.2");
-                    WebElement categoryButton = driver.findElement(By.xpath("//a[text()='" + category.getName() + "']"));
-                    categoryButton.click();
-                } catch (Exception e) {
-                    throw new NoSuchElementException(e);
-                }
-            }
-        } else {
-            //version 3
-            try {
-                System.out.println("Avito version 3");
-                WebElement rubricator = driver.findElement(By.xpath("//button[contains(@class, 'rubricatorButton')]"));
-                rubricator.click();
-                Thread.sleep(1_000);
+                System.out.println("Avito version 2.1");
                 WebElement selector = driver.findElement(By.xpath("//p[contains(text(), 'Электроника')]"));
                 selector.click();
                 WebElement categoryButton = driver.findElement(By.xpath("//strong[contains(@data-name, '" + category.getName() + "')]"));
                 categoryButton.click();
-            } catch (Exception e) {
-                throw new NoSuchElementException(e);
+            } else {
+                //version 2.2
+                System.out.println("Avito version 2.2");
+                WebElement categoryButton = driver.findElement(By.xpath("//a[text()='" + category.getName() + "']"));
+                categoryButton.click();
             }
+        } else {
+            //version 3
+            System.out.println("Avito version 3");
+            WebElement rubricator = driver.findElement(By.xpath("//button[contains(@class, 'rubricatorButton')]"));
+            rubricator.click();
+            Thread.sleep(1_000);
+            WebElement selector = driver.findElement(By.xpath("//p[contains(text(), 'Электроника')]"));
+            selector.click();
+            WebElement categoryButton = driver.findElement(By.xpath("//strong[contains(@data-name, '" + category.getName() + "')]"));
+            categoryButton.click();
         }
     }
     @Step("В поле поиска введено значение {string}")
@@ -164,5 +146,8 @@ public class stepDef {
             content = prices.get(i).getAttribute("content");
             System.out.println(names.get(i).getText() + ": " + content + " рублей.");
         }
+        driver.close();
     }
+
+
 }
